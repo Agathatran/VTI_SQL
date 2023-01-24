@@ -18,28 +18,31 @@ WHERE position.PositionName = 'Dev'
 -- Question 4 [DONE]: Find the information of all departments with more than 3 employees
 SELECT * 
 FROM `account`
-having count(DepartmentID)=3;
--- Question 5 [DONE]: Find the list of questions which have been used in exam the most
-SELECT * 
-FROM exam
-JOIN examquestion ON exam.examid=examquestion.examid;
+having count(accountid)=3;
+-- Question 5: Find the list of questions which have been used in exam the most
+
 -- Question 6: Investigate the frequency of each category question which have been used.
 
 -- Question 7: Statistic the frequency of questions which have been use in exams.
-SELECT DISTINCT COUNT(*) 
-FROM exam
-JOIN examquestion ON exam.examid=examquestion.examid
-GROUP BY examquestion.ExamID
-;
 -- Question 8: Find the questions with the most answers.
--- Question 9: Find the number of accounts in each group .
+-- Question 9[DONE]: Find the number of accounts in each group.
+SELECT `group`.groupname, COUNT(groupaccount.accountid)
+FROM groupaccount
+JOIN `group`
+ON groupaccount.groupid = `group`.groupid
+GROUP BY groupaccount.accountid;
 -- Question 10: Tìm chức vụ có ít người nhất
--- Question 11: How many dev, test, scrum master, and PM in each department?
+-- Question 11 [DONE]: How many dev, test, scrum master, and PM in each department?
+SELECT positionname, count(PositionID)
+FROM position
+GROUP BY positionname
+HAVING positionname in ('Dev', 'test', 'scum master', 'PM')
+;
 -- Question 12: Investigate the following information of each question: type, creator, answer content, etc.
 -- Question 13: How many essay and multiple choice questions are there?
 -- Question 14: Find the group without any account.
 -- Question 16: Find the questions without answers.
-/*Question 17: 
+/*Question 17: [DONE]
 a)[DONE] Listing the accounts in group 1 (accountID= groupID).*/
 SELECT `account`.accountID, `account`.fullname
 FROM	`account`
@@ -67,7 +70,7 @@ ON `account`.accountID= groupaccount.accountid
 WHERE groupaccount.groupid=2;
 
 
-/*Question 18: 
+/*Question 18: [DONE]
 a) Listing groups with more than 5 members.*/
 SELECT groupaccount.groupid,`group`.groupname, count(groupaccount.accountid) as frequency
 FROM `group`
